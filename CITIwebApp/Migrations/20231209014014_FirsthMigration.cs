@@ -12,20 +12,18 @@ namespace CITIwebApp.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Ingeniero",
+                name: "Cliente",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Rni = table.Column<int>(type: "int", nullable: false),
-                    Ci = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    NombreCompleto = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FechaRegistro = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Especialidad = table.Column<int>(type: "int", nullable: false)
+                    CI = table.Column<int>(type: "int", nullable: false),
+                    Celular = table.Column<int>(type: "int", nullable: false),
+                    NombreCompleto = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Ingeniero", x => x.Id);
+                    table.PrimaryKey("PK_Cliente", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -43,16 +41,37 @@ namespace CITIwebApp.Migrations
                 {
                     table.PrimaryKey("PK_Usuarios", x => x.Id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Vehiculo",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Modelo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Matricula = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FechaRegistro = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Precio = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Foto = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Especialidad = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Vehiculo", x => x.Id);
+                });
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Ingeniero");
+                name: "Cliente");
 
             migrationBuilder.DropTable(
                 name: "Usuarios");
+
+            migrationBuilder.DropTable(
+                name: "Vehiculo");
         }
     }
 }

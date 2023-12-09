@@ -13,10 +13,11 @@ namespace CITIwebApp.Controllers
     public class VehiculoesController : Controller
     {
         private readonly MiContext _context;
-
-        public VehiculoesController(MiContext context)
+        private readonly IWebHostEnvironment _webHostEnviroment;
+       public VehiculoesController(MiContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnviroment = webHostEnvironment;
         }
 
         // GET: Vehiculoes
@@ -88,7 +89,7 @@ namespace CITIwebApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Modelo,Matricula,FechaRegistro,Precio,Foto,Especialidad")] Vehiculo vehiculo)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Modelo,Matricula,FechaRegistro,Precio,FotoFile,Especialidad")] Vehiculo vehiculo)
         {
             if (id != vehiculo.Id)
             {
@@ -99,6 +100,10 @@ namespace CITIwebApp.Controllers
             {
                 try
                 {
+                    if(vehiculo.FotoFile!=null)
+                    {
+                        await SubirFoto(vehiculo);
+                    }
                     _context.Update(vehiculo);
                     await _context.SaveChangesAsync();
                 }
@@ -116,6 +121,19 @@ namespace CITIwebApp.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(vehiculo);
+        }
+
+        private async Task SubirFoto(Vehiculo vehiculo)
+        {
+            //formar el nombre del archivo foto
+            string wwRootPath = _webHostEnviroment.WebRootPath;
+            string extension = Path.GetExtension(vehiculo.FotoFile!.FileName);
+            string nombrefoto = $"{vehiculo.Id}{extension}";
+            vehiculo.Foto = nombrefoto;
+            //copiar la foto en el proyecto
+            string path =Path.Combine($"{wwRootPath}/fotos/",nombrefoto);
+            var fileStream = new FileStream(path, FileMode.Create);
+            await vehiculo.FotoFile.CopyToAsync(fileStream); 
         }
 
         // GET: Vehiculoes/Delete/5

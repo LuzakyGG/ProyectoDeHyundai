@@ -45,36 +45,6 @@ namespace CITIwebApp.Migrations
                     b.ToTable("Cliente");
                 });
 
-            modelBuilder.Entity("CITIwebApp.Models.Ingeniero", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Ci")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Especialidad")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("FechaRegistro")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("NombreCompleto")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Rni")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Ingeniero");
-                });
-
             modelBuilder.Entity("CITIwebApp.Models.Usuario", b =>
                 {
                     b.Property<int>("Id")
