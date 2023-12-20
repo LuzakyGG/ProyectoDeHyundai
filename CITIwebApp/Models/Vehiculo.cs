@@ -23,5 +23,7 @@ namespace CITIwebApp.Models
         [NotMapped]
         [Display(Name ="Cargar Foto")]
         public IFormFile? FotoFile { get; set; }
+
+        public virtual List<Venta>? Ventas { get; set; }
     }
 }

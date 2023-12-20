@@ -13,6 +13,8 @@ namespace CITIwebApp.Models
         public int Celular { get; set; }
         [Required]
         public string? NombreCompleto { get; set; }
-        
+
+        public virtual List<Venta>? Ventas { get; set; }
+
     }
 }

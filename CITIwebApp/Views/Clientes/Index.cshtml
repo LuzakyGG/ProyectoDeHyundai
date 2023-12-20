@@ -37,11 +37,16 @@
                 @Html.DisplayFor(modelItem => item.NombreCompleto)
             </td>
             <td>
+                <a class="btn btn-success" asp-action="Details" asp-route-id="@item.Id">Registrar Venta</a> |
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+@if (TempData["VentaRegistrado"] != null)
+{
+    <div class="alert alert-success">@TempData["VentaRegistrado"]</div>
+    ;
+}

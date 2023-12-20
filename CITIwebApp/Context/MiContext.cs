@@ -13,5 +13,6 @@ namespace CITIwebApp.Context
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Cliente> Cliente { get; set; }
         public DbSet<Vehiculo> Vehiculo { get; set; }
+        public DbSet<Venta>? Venta { get; set; }
     }
 }

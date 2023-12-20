@@ -15,5 +15,7 @@ namespace CITIwebApp.Models
         public string? NombreCompleto { get; set; }
         [Required]
         public RolEmun Rol { get; set; }
+
+        public virtual List<Venta>? Ventas { get; set; }
     }
 }
