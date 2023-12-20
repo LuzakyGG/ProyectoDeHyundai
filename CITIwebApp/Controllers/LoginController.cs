@@ -32,7 +32,7 @@ namespace CITIwebApp.Controllers
                 return RedirectToAction("Index");
             }
         }
-        public async Task <IActionResult> Logout()
+        public IActionResult Logout()
         {
             return RedirectToAction("Index", "Login");
         }

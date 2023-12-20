@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<CITIwebApp.Models.Venta>
-
+@using CITIwebApp.Dtos;
 @{
     ViewData["Title"] = "Registro de Ventas";
 }
@@ -7,8 +7,16 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Registar nueva Venta</a>
 </p>
+<form asp-controller="Ventas" asp-action="Index">
+<p>
+<select name="Buscar" class="form-control" asp-items="Html.GetEnumSelectList<Mesenum>()"required>
+<option value="">Seleccione mes</option>
+</select>
+<input type="submit" value="Generar Reporte" class="btn btn-sm btn-dark" />
+</p>
+</form>
 <table class="table">
     <thead>
         <tr>
@@ -19,7 +27,7 @@
                 @Html.DisplayNameFor(model => model.Monto)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Vehiculo)
+                @Html.DisplayNameFor(model => model.Vehiculo.Modelo)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Cliente)

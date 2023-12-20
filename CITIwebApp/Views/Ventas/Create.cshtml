@@ -15,7 +15,6 @@
             <div class="form-group">
                 <label asp-for="Monto" class="control-label"></label>
                 <input asp-for="Monto" class="form-control"/>
-                <span asp-validation-for="Monto" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="VehiculoId" class="control-label"></label>
@@ -29,6 +28,10 @@
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
+        @if(TempData["VentaRegistrado"]!=null)
+        {
+            <div class"alert alert-success">@TempData["VentaRegistrado"]</div>
+        }
     </div>
 </div>
 

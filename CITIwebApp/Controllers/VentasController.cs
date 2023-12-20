@@ -20,10 +20,25 @@ namespace CITIwebApp.Controllers
         }
 
         // GET: Ventas
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int Buscar)
         {
-            var miContext = _context.Venta.Include(v => v.Cliente).Include(v => v.Usuario).Include(v => v.Vehiculo);
-            return View(await miContext.ToListAsync());
+            if(Buscar==null)
+            {
+               var miContext = _context.Venta.Include(v => v.Cliente).Include(v => v.Usuario).Include(v => v.Vehiculo);
+               return View(await miContext.ToListAsync());
+            }
+            else if(Buscar==13)
+            {
+                var miContext = _context.Venta.Include(v => v.Cliente).Include(v => v.Usuario).Include(v => v.Vehiculo);
+                return View(await miContext.ToListAsync());
+            }
+                string b = Buscar.ToString();
+                var ventas = from venta in _context.Venta.Include(v => v.Cliente).Include(v => v.Usuario).Include(v => v.Vehiculo) select venta;
+                if (!String.IsNullOrEmpty(b))
+                {
+                    ventas = ventas.Where(v => v.Fecha.Month.ToString().Contains(b));
+                }
+            return View(await ventas.ToListAsync());
         }
 
         // GET: Ventas/Details/5
@@ -67,6 +82,7 @@ namespace CITIwebApp.Controllers
             {
                 venta.UsuarioId = 1;
                 venta.Fecha = DateTime.Now;
+            
                 _context.Add(venta);
                 await _context.SaveChangesAsync();
                 TempData["VentaRegistrado"] = "Venta Registrada de manera correcta!!";
