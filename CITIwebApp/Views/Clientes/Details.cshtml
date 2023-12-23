@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Details";
 }
-<h1>Details</h1>
+<h1>Detalles</h1>
 
 <div>
     <h4>Cliente</h4>
@@ -29,13 +29,6 @@
         </dd>
     </dl>
 </div>
-
-<h3>Registro de Venta</h3>
-<hr />
-@{
-    ViewData["ClienteId"] = Model.Id;
-}
-<partial name="~/Views/Ventas/Create.cshtml" model="new Venta()"view-data="ViewData"></partial>
 <div>
     <a asp-action="Index">Volver</a>
 </div>

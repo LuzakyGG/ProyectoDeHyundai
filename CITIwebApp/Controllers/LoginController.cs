@@ -63,6 +63,10 @@ namespace CITIwebApp.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme); 
             return RedirectToAction("Index", "Login");
         }
+		public async Task<IActionResult>cat()
+		{
+			return RedirectToAction("Catalogo", "Login");
+		}
 
 	}
 }
