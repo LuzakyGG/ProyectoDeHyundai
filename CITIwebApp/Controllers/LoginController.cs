@@ -1,7 +1,11 @@
 ﻿using CITIwebApp.Context;
 using CITIwebApp.Models;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
+using System.Security.Policy;
 
 namespace CITIwebApp.Controllers
 {
@@ -25,6 +29,7 @@ namespace CITIwebApp.Controllers
                             .FirstOrDefaultAsync();
             if(usuario!=null)
             {
+                await SetUserCookie(usuario);
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -33,19 +38,31 @@ namespace CITIwebApp.Controllers
                 return RedirectToAction("Index");
             }
         }
+
+        private async Task SetUserCookie(Usuario usuario)
+        {
+            var claims = new List<Claim>() 
+            {
+            new Claim(ClaimTypes.Name, usuario!.NombreCompleto!),
+            new Claim(ClaimTypes.Email, usuario!.Email!),
+            new Claim(ClaimTypes.NameIdentifier, usuario!.Id.ToString()),
+            new Claim(ClaimTypes.Role, usuario.Rol!.ToString()),
+            };
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+        }
+
         public async Task <IActionResult> Catalogo()
         {
             return _context.Vehiculo != null ?
             View(await _context.Vehiculo.ToListAsync()) :
             Problem("Entity set 'MiContext.Vehiculo'  is null.");
         }
-        public IActionResult Logout()
+        public async Task <IActionResult> Logout()
         {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme); 
             return RedirectToAction("Index", "Login");
         }
-		public async Task <IActionResult> det(Vehiculo vehiculo)
-		{
-			return RedirectToAction("Details", "Vehiculoes", new {id = vehiculo.Id} );
-		}
+
 	}
 }

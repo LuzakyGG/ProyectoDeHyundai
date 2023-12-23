@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CITIwebApp.Context;
 using CITIwebApp.Models;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CITIwebApp.Controllers
 {
+    [Authorize] 
     public class VentasController : Controller
     {
         private readonly MiContext _context;
@@ -80,7 +83,7 @@ namespace CITIwebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                venta.UsuarioId = 1;
+                venta.UsuarioId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
                 venta.Fecha = DateTime.Now;
 				var m = await _context.Vehiculo
             .FirstOrDefaultAsync(m => m.Id == venta.VehiculoId);

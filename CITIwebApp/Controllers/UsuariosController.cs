@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CITIwebApp.Context;
 using CITIwebApp.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CITIwebApp.Controllers
 {
+    [Authorize(Roles ="Administrador")]
     public class UsuariosController : Controller
     {
         private readonly MiContext _context;
