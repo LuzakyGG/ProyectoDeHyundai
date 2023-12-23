@@ -2,6 +2,7 @@
 @using CITIwebApp.Dtos;
 @{
     ViewData["Title"] = "Registro de Ventas";
+    float a = 0;
 }
 
 <h1>Index</h1>
@@ -46,6 +47,7 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Monto)
+                Bs.
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Vehiculo.Modelo)
@@ -61,6 +63,14 @@
                 <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
             </td>
         </tr>
-}
+          a=a+item.Monto; 
+        }
+        @if(a!=0){
+            <tr>
+                <td>
+                    <h3>El Monto total es: @a Bs.</h3>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

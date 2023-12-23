@@ -1,0 +1,82 @@
+﻿@model IEnumerable<CITIwebApp.Models.Vehiculo>
+﻿@{
+	Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/CITIwebApp.styles.css" asp-append-version="true" />
+	<style>
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			text-align: center;
+		}
+
+		th,td {
+			border: 1px solid #ddd;
+			text-align: center;
+			padding: 0px;
+			vertical-align: middle;
+		}
+	</style>
+</head>
+<body>
+	<header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+			<div class="container-fluid">
+				<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Hyundai Catalogo de vehiculos</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+						aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+			<div class="container-icon">
+				<a class="nav-link" asp-controller="Login" asp-action="Logout">Iniciar Sesion</a>
+			</div>
+			</div>
+        </nav>
+	</header>
+    <table align="center" class="table">
+		<thead>
+			<tr>
+				<th>Modelo</th>
+				<th>Precio</th>
+				<th>Foto</th>
+				<th>Detalles</th>
+			</tr>
+		</thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+				string aux = item.Id.ToString();
+				string f = "Detail/" + aux;
+				<tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Modelo)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Precio)
+						 Bs.
+					</td>
+					<td>
+						@if (item.Foto != null)
+						{
+							<img src="~/fotos/@item.Foto" class="img-thumbnail" width="150px" />
+						}
+                    </td>
+					
+					<td>
+					
+						<a class="btn btn-success" asp-controller="Vehiculoes" asp-action="@f">Detalles</a>
+					</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>

@@ -20,7 +20,7 @@ namespace CITIwebApp.Controllers
         }
 
         // GET: Ventas
-        public async Task<IActionResult> Index(int Buscar)
+            public async Task<IActionResult> Index(int Buscar)
         {
             if(Buscar==null)
             {
@@ -82,6 +82,9 @@ namespace CITIwebApp.Controllers
             {
                 venta.UsuarioId = 1;
                 venta.Fecha = DateTime.Now;
+				var m = await _context.Vehiculo
+            .FirstOrDefaultAsync(m => m.Id == venta.VehiculoId);
+                venta.Monto = (float)(m.Precio);
             
                 _context.Add(venta);
                 await _context.SaveChangesAsync();

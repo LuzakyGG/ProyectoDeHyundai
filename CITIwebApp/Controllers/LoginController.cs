@@ -1,4 +1,5 @@
 ﻿using CITIwebApp.Context;
+using CITIwebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -32,9 +33,19 @@ namespace CITIwebApp.Controllers
                 return RedirectToAction("Index");
             }
         }
+        public async Task <IActionResult> Catalogo()
+        {
+            return _context.Vehiculo != null ?
+            View(await _context.Vehiculo.ToListAsync()) :
+            Problem("Entity set 'MiContext.Vehiculo'  is null.");
+        }
         public IActionResult Logout()
         {
             return RedirectToAction("Index", "Login");
         }
-    }
+		public async Task <IActionResult> det(Vehiculo vehiculo)
+		{
+			return RedirectToAction("Details", "Vehiculoes", new {id = vehiculo.Id} );
+		}
+	}
 }

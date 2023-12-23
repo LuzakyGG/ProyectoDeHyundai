@@ -63,7 +63,3 @@
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
-@{
-    ViewData["Monto"] = Model.Precio;
-}
-<partial name="~/Views/Ventas/Create.cshtml" model="new Venta()" view-data="ViewData" />
